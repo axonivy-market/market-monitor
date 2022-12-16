@@ -5,6 +5,7 @@ org="axonivy-market"
 ignored_repos=(
   "market-up2date-keeper"
   "market.axonivy.com"
+  "market-monitor"
   "market"
 )
 

@@ -17,10 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Generate Monitor
-      run: |
-        pwd
-        ls -la
-        ./build.sh
+      run: ./build.sh
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
