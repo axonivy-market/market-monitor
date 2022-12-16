@@ -1,5 +1,7 @@
 #!/bin/bash
 
-source marketMon.sh
+DIR="$( cd "$( dirname "${BASH_SOURCE}" )" && pwd )"
+
+source "$DIR/marketMon.sh"
 
 localPage
