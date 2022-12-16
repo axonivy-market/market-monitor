@@ -6,6 +6,9 @@ on:
   schedule:
     - cron: '21 21 * * *'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,3 +26,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         path: build/*
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build
