@@ -29,3 +29,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: build
+        git-config-name: GitHub Actions
+        git-config-email: actions@github.com
