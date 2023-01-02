@@ -58,6 +58,7 @@ page() {
   css="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
   echo "<html><head><title>${title} ${org}</title>${css}</head>"
   echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
+  echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
   echo "<ul>"
   print
   echo "</ul>"
