@@ -16,6 +16,8 @@ build() {
   page "${html}" | sed "s|/monitor\.css|monitor\.css|g" > "${html}"
   cp -v "${DIR}/monitor/monitor.css" "${build}"
   echo "monitor built to ${html}!"
+
+  cat "${html}"
 }
 
 clean

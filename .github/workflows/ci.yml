@@ -25,6 +25,9 @@ jobs:
         path: build/*
 
     - name: Deploy 🚀
+      if: github.ref == 'refs/heads/master'
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: build
+        git-config-name: GitHub Actions
+        git-config-email: actions@github.com
