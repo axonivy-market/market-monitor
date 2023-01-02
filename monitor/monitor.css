@@ -4,7 +4,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 12pt;
+  font-size: 1em;
   margin: 0px;
   padding: 0px;
 }
@@ -84,5 +84,11 @@ h3 {
     columns: 2;
     -webkit-columns: 2;
     -moz-columns: 2;
+  }
+}
+
+@media screen and (min-height: 1000px ) {
+  body {
+    font-size: 2em;
   }
 }
