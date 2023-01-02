@@ -55,8 +55,9 @@ status() {
 
 page() {
   title="Action Monitor 4"
-  css="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
-  echo "<html><head><title>${title} ${org}</title>${css}</head>"
+  head="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
+  head+="<link rel='icon' href='https://avatars.githubusercontent.com/u/65916846?v=4'>"
+  echo "<html><head><title>${title} ${org}</title>${head}</head>"
   echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
   echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
   echo "<ul>"
