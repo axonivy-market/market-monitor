@@ -17,7 +17,11 @@ build() {
   cp -v "${DIR}/monitor/monitor.css" "${build}"
   echo "monitor built to ${html}!"
 
-  cat "${html}"
+  content=$(cat "${html}")
+  if [[ "${content}" != *"badge.svg"* ]]; then
+    echo "HTML seems not to contain any badges from repositories"
+    exit 1
+  fi
 }
 
 clean
