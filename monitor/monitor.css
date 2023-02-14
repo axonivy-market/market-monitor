@@ -42,7 +42,6 @@ li > a {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  height: 100%;
   text-align: center;
   text-decoration: none;
 }
