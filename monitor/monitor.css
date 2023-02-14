@@ -19,21 +19,36 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 li {
-  margin: 4px;
+  flex: 1 1 20%;
+  background: hsl(0 0% 95% / 0.5);
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+li:hover {
+  background: hsl(0 0% 90%);
 }
 
 li > a {
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  text-align: center;
   text-decoration: none;
 }
 
 li > a > img {
   width: 8em;
-  margin-right: 0.5em;
 }
 
 h3 {
@@ -77,6 +92,12 @@ h3 {
   a {
     color: #00b7ff;
   }
+  li {
+    background: hsl(0 0% 0% / 0.3);
+  }
+  li:hover {
+    background: hsl(0 0% 0%);
+  }
 }
 
 @media screen and ( min-width: 850px ) and ( max-height: 768px ) {
@@ -89,6 +110,6 @@ h3 {
 
 @media screen and (min-height: 1000px ) {
   body {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }
