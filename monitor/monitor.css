@@ -7,6 +7,7 @@ body {
   font-size: 1em;
   margin: 0px;
   padding: 0px;
+  padding-bottom: 1em;
 }
 
 a { 
@@ -27,6 +28,11 @@ ul {
 
 li {
   flex: 1 1 20%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   background: hsl(0 0% 95% / 0.5);
   border-radius: 1rem;
   padding: 0.5rem;
@@ -37,11 +43,6 @@ li:hover {
 }
 
 li > a {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   text-align: center;
   text-decoration: none;
 }

@@ -43,26 +43,35 @@ print() {
   done
 }
 
+badge() {
+  build=$1
+  badge="${build}/badge.svg"
+  echo "<a href='${build}'><img src='${badge}' onerror='this.style.display=\"none\"'/></a>"
+}
+
 status() {
   if [[ " ${ignored_repos[@]} " =~ " $1 " ]]; then
     return
   fi
   repo=$1
-  build="https://github.com/${org}/${repo}/actions/workflows/ci.yml"
-  badge="${build}/badge.svg"
-  echo "<li><a href='${build}'><img src='${badge}'/> ${repo}</a></li>"
+  actionsUri="https://github.com/${org}/${repo}/actions"
+  ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
+  devBadge=$(badge ${actionsUri}/workflows/dev.yml)
+  echo "<li>${ciBadge}${devBadge} <a href='${actionsUri}'>${repo}</a></li>"
 }
 
 page() {
   title="Action Monitor 4"
   head="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
   head+="<link rel='icon' href='https://avatars.githubusercontent.com/u/65916846?v=4'>"
-  echo "<html><head><title>${title} ${org}</title>${head}</head>"
+  echo "<!DOCTYPE html><html><head><title>${title} ${org}</title>${head}</head>"
+  echo "<body>"
   echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
   echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
   echo "<ul>"
   print
   echo "</ul>"
+  echo "</body>"
   echo "</html>"
 }
 
