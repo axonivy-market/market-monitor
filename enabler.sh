@@ -3,12 +3,7 @@
 # Action Workflow Enabler CLI
 # ===================================
 # This script enables all CI+DEV action pipelines in the axonivy-market org.
-# 
-# Run it as follows:
-# 1. lease a Github token with 'workflow' permissions:  
-#    Github.com > Account > Developer Setttings > Classic Token
-# 2. store the token in your terminal environment `export GH_TOKEN=ghYourToken123`
-# 3. run this script `./enabler.sh`
+# Using https://cli.github.com/
 
 org="axonivy-market"
 
@@ -20,12 +15,8 @@ ignored_repos=(
 )
 
 githubRepos() {
-  ghApi="https://api.github.com/orgs/${org}/repos?per_page=100"
-  headers=(--header "Accept: application/vnd.github+json")
-  if [ ! -z "$GH_TOKEN" ]; then
-    headers+=(--header "Authorization: Bearer $GH_TOKEN")
-  fi
-  curl -v --url "${ghApi}" "${headers[@]}"
+  ghApi="orgs/${org}/repos?per_page=100"
+  gh api "${ghApi}"
 }
 
 githubReposC(){
@@ -57,19 +48,7 @@ enableAll() {
 workflows() {
   repo=$1
   wfName=$2
-  curl -L \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${GH_TOKEN}" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/${org}/${repo}/actions/workflows
-}
-
-wfUrl() {
-  name=$1
-  jq -r ".workflows[] | 
-    select(.name == \"${name}\") | 
-    select(.state != \"active\") |
-      .url"
+  gh api "repos/${org}/${repo}/actions/workflows"
 }
 
 enableWfs() {
@@ -77,23 +56,10 @@ enableWfs() {
     return
   fi
   repo=$1
-  echo "processing ${repo}"
-  workflows=$(workflows ${repo})
-  ciUri=$(echo $workflows | wfUrl "CI-Build")
-  enable $ciUri
-  devUri=$(echo $workflows | wfUrl "Dev-Build")
-  enable $devUri
-}
-
-enable() {
-  wfUri=$1
-  echo "enabling: $wfUri"
-  curl -L \
-  -X PUT \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${GH_TOKEN}" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  ${wfUri}/enable
+  where="${org}/${repo}"
+  echo "processing $where"
+  gh workflow enable -R "$where" ci.yml
+  gh workflow enable -R "$where" dev.yml
 }
 
 enableAll
