@@ -15,7 +15,7 @@ ignored_repos=(
 )
 
 githubRepos() {
-  ghApi="orgs/${org}/repos?per_page=100"
+  ghApi="orgs/${org}/repos?per_page=200"
   gh api "${ghApi}"
 }
 
