@@ -1,33 +1,41 @@
 name: CI-Build
 
-on: 
+on:
   push:
   workflow_dispatch:
   schedule:
     - cron: '21 21 * * *'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Generate Monitor 🧑‍🔧
       run: ./build.sh
 
-    - name: Archive 🗃️
-      uses: actions/upload-artifact@v4
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v5
       with:
-        path: build/*
+        path: build
 
-    - name: Deploy 🚀
-      if: github.ref == 'refs/heads/master'
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: build
-        git-config-name: GitHub Actions
-        git-config-email: actions@github.com
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v5
