@@ -75,17 +75,22 @@ status() {
     return
   fi
   repo=$1
-  actionsUri="https://github.com/${org}/${repo}/actions"
+  focusIcon=""
+  if [[ " ${focused_repos[*]} " == *" $repo "* ]]; then
+    focusIcon="🎯️"
+  fi
+  repoUri="https://github.com/${org}/${repo}"
+  actionsUri="${repoUri}/actions"
   ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
   devBadge=$(badge ${actionsUri}/workflows/dev.yml)
-  echo "<li>${ciBadge}${devBadge} <a href='${actionsUri}'>${repo}</a></li>"
+  echo "<li>${ciBadge}${devBadge} <a href='${actionsUri}'>${repo}${focusIcon}</a></li>"
 }
 
 page() {
   title="Action Monitor 4"
   head="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
   head+="<link rel='icon' href='https://avatars.githubusercontent.com/u/65916846?v=4'>"
-  echo "<!DOCTYPE html><html><head><title>${title} ${org}</title>${head}</head>"
+  echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>${title} ${org}</title>${head}</head>"
   echo "<body>"
   echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
   echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
@@ -105,7 +110,7 @@ localFile() {
 }
 
 localPage() {
-  echo "Content-type: text/html"
+  echo "Content-type: text/html; charset=UTF-8"
   echo ""
   page
 }
