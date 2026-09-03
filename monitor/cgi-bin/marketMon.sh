@@ -7,6 +7,7 @@ ignored_repos=(
   "market.axonivy.com"
   "market-monitor"
   "market"
+  "github-repo-manager"
 )
 
 focused_repos=(
