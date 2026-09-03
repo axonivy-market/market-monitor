@@ -9,6 +9,20 @@ ignored_repos=(
   "market"
 )
 
+focused_repos=(
+  "smart-workflow"
+  "persistence-utils"
+  "docuware-connector"
+  "doc-factory"
+  "portal"
+  "pattern-demos"
+  "msgraph-connector"
+  "idp-utils"
+  "docusign-connector"
+  "deepl-connector"
+  "db-utils"
+)
+
 githubRepos() {
   ghApi="https://api.github.com/orgs/${org}/repos?per_page=100"
   headers=(--header "Accept: application/vnd.github+json")
@@ -37,8 +51,15 @@ collectRepos() {
 }
 
 print() {
+  for repo_name in "${focused_repos[@]}"; do
+    status "$repo_name"
+  done
+
   collectRepos |
   while read repo_name; do
+    if [[ " ${focused_repos[*]} " == *" $repo_name "* ]]; then
+      continue
+    fi
     status $repo_name
   done
 }
