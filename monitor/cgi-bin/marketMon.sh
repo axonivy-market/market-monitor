@@ -7,6 +7,21 @@ ignored_repos=(
   "market.axonivy.com"
   "market-monitor"
   "market"
+  "github-repo-manager"
+)
+
+focused_repos=(
+  "smart-workflow"
+  "persistence-utils"
+  "docuware-connector"
+  "doc-factory"
+  "portal"
+  "pattern-demos"
+  "msgraph-connector"
+  "idp-utils"
+  "docusign-connector"
+  "deepl-connector"
+  "db-utils"
 )
 
 githubRepos() {
@@ -37,9 +52,15 @@ collectRepos() {
 }
 
 print() {
-  collectRepos |
-  while read repo_name; do
-    status $repo_name
+  for repo_name in "${focused_repos[@]}"; do
+    status "$repo_name"
+  done
+  collectRepos | sort |
+  while read -r repo_name; do
+    if [[ " ${focused_repos[*]} " == *" $repo_name "* ]]; then
+      continue
+    fi
+    status "$repo_name"
   done
 }
 
@@ -54,17 +75,25 @@ status() {
     return
   fi
   repo=$1
-  actionsUri="https://github.com/${org}/${repo}/actions"
+  focusIcon=""
+  repoClass=""
+  if [[ " ${focused_repos[*]} " == *" $repo "* ]]; then
+    focusIcon="⭐️"
+    repoClass=" class='focused'"
+  fi
+  repoUri="https://github.com/${org}/${repo}"
+  actionsUri="${repoUri}/actions"
   ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
   devBadge=$(badge ${actionsUri}/workflows/dev.yml)
-  echo "<li>${ciBadge}${devBadge} <a href='${actionsUri}'>${repo}</a></li>"
+  e2eBadge=$(badge ${actionsUri}/workflows/e2e.yml)
+  echo "<li${repoClass}>${ciBadge}${devBadge}${e2eBadge} <a href='${repoUri}'>${repo}</a> ${focusIcon}</li>"
 }
 
 page() {
   title="Action Monitor 4"
   head="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
   head+="<link rel='icon' href='https://avatars.githubusercontent.com/u/65916846?v=4'>"
-  echo "<!DOCTYPE html><html><head><title>${title} ${org}</title>${head}</head>"
+  echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>${title} ${org}</title>${head}</head>"
   echo "<body>"
   echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
   echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
@@ -84,7 +113,7 @@ localFile() {
 }
 
 localPage() {
-  echo "Content-type: text/html"
+  echo "Content-type: text/html; charset=UTF-8"
   echo ""
   page
 }
