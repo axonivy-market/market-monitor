@@ -55,13 +55,12 @@ print() {
   for repo_name in "${focused_repos[@]}"; do
     status "$repo_name"
   done
-
-  collectRepos |
-  while read repo_name; do
+  collectRepos | sort |
+  while read -r repo_name; do
     if [[ " ${focused_repos[*]} " == *" $repo_name "* ]]; then
       continue
     fi
-    status $repo_name
+    status "$repo_name"
   done
 }
 
