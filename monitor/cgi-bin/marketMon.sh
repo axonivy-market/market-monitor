@@ -83,7 +83,8 @@ status() {
   actionsUri="${repoUri}/actions"
   ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
   devBadge=$(badge ${actionsUri}/workflows/dev.yml)
-  echo "<li>${ciBadge}${devBadge} <a href='${actionsUri}'>${repo}${focusIcon}</a></li>"
+  e2eBadge=$(badge ${actionsUri}/workflows/e2e.yml)
+  echo "<li>${ciBadge}${devBadge}${e2eBadge} <a href='${actionsUri}'>${repo}${focusIcon}</a></li>"
 }
 
 page() {
