@@ -22,6 +22,7 @@ focused_repos=(
   "docusign-connector"
   "deepl-connector"
   "db-utils"
+  "mailstore-utils"
 )
 
 githubRepos() {
