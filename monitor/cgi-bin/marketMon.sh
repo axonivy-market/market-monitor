@@ -78,7 +78,7 @@ status() {
   focusIcon=""
   repoClass=""
   if [[ " ${focused_repos[*]} " == *" $repo "* ]]; then
-    focusIcon="⭐️"
+    focusIcon=" ⭐️"
     repoClass=" class='focused'"
   fi
   repoUri="https://github.com/${org}/${repo}"
@@ -86,7 +86,7 @@ status() {
   ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
   devBadge=$(badge ${actionsUri}/workflows/dev.yml)
   e2eBadge=$(badge ${actionsUri}/workflows/e2e.yml)
-  echo "<li${repoClass}>${ciBadge}${devBadge}${e2eBadge} <a href='${repoUri}'>${repo}</a> ${focusIcon}</li>"
+  echo "<li${repoClass}><a href='${repoUri}'>${repo}${focusIcon}</a> ${ciBadge}${devBadge}${e2eBadge}</li>"
 }
 
 page() {
