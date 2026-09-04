@@ -67,7 +67,7 @@ print() {
 
 badge() {
   build=$1
-  badge="${build}/badge.svg"
+  badge="${build}/badge.svg?refresh=$(date -u +%Y%m%d%H)"
   echo "<a href='${build}'><img src='${badge}' onerror='this.style.display=\"none\"'/></a>"
 }
 
