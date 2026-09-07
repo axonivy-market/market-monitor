@@ -25,6 +25,11 @@ focused_repos=(
   "mailstore-utils"
 )
 
+devBranch="dev/14.0"
+dev_master=(
+  "smart-workflow"
+)
+
 githubRepos() {
   ghApi="https://api.github.com/orgs/${org}/repos?per_page=100"
   headers=(--header "Accept: application/vnd.github+json")
@@ -66,8 +71,9 @@ print() {
 }
 
 badge() {
-  build=$1
-  badge="${build}/badge.svg?refresh=$(date -u +%Y%m%d%H)"
+  local build=$1
+  local branch=${2:-master}
+  local badge="${build}/badge.svg?branch=${branch}&refresh=$(date -u +%Y%m%d%H)"
   echo "<a href='${build}'><img src='${badge}' onerror='this.style.display=\"none\"'/></a>"
 }
 
@@ -75,18 +81,22 @@ status() {
   if [[ " ${ignored_repos[@]} " =~ " $1 " ]]; then
     return
   fi
-  repo=$1
-  focusIcon=""
-  repoClass=""
+  local repo=$1
+  local focusIcon=""
+  local repoClass=""
   if [[ " ${focused_repos[*]} " == *" $repo "* ]]; then
     focusIcon=" ⭐️"
     repoClass=" class='focused'"
   fi
-  repoUri="https://github.com/${org}/${repo}"
-  actionsUri="${repoUri}/actions"
-  ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
-  devBadge=$(badge ${actionsUri}/workflows/dev.yml)
-  e2eBadge=$(badge ${actionsUri}/workflows/e2e.yml)
+  local repoUri="https://github.com/${org}/${repo}"
+  local actionsUri="${repoUri}/actions"
+  local ciBadge=$(badge ${actionsUri}/workflows/ci.yml)
+  local repoDevBranch="${devBranch}"
+  if [[ " ${dev_master[*]} " == *" $repo "* ]]; then
+    repoDevBranch="master"
+  fi
+  local devBadge=$(badge ${actionsUri}/workflows/dev.yml "${repoDevBranch}")
+  local e2eBadge=$(badge ${actionsUri}/workflows/e2e.yml)
   echo "<li${repoClass}><a href='${repoUri}'>${repo}${focusIcon}</a> ${ciBadge}${devBadge}${e2eBadge}</li>"
 }
 
