@@ -101,13 +101,19 @@ status() {
 }
 
 page() {
-  title="Action Monitor 4"
+  title="Action Monitor"
   head="<link type='text/css' rel='stylesheet' href='/monitor.css'>"
   head+="<link rel='icon' href='https://avatars.githubusercontent.com/u/65916846?v=4'>"
   echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>${title} ${org}</title>${head}</head>"
   echo "<body>"
-  echo "<h3>${title} <a href='https://github.com/${org}'>${org}</a></h3>"
+  echo "<h3>${title}</h3>"
   echo "<div class='github-ribbon'><a target='_blank' href='https://github.com/axonivy-market/market-monitor'>Fork me on GitHub</a></div>"
+  echo "<div class='static-links'>"
+  echo "<a href='https://github.com/${org}'>${org}</a>: "
+  echo "<a target='_blank' href='https://github.com/pulls/involves?q=is%3Apr+involves%3A%40me+state%3Aopen+archived%3Afalse+sort%3Aupdated-desc+org%3A${org}'>🔀 My PRs</a>"
+  echo "<a target='_blank' href='https://github.com/orgs/${org}/repositories?q=archived%3Atrue'>🪦️ R.I.P</a>"
+  echo "<a target='_blank' href='https://github.com/axonivy-market/market-up2date-keeper'>♻️ Update</a>"
+  echo "</div>"
   echo "<ul>"
   print
   echo "</ul>"

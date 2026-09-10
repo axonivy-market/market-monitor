@@ -73,6 +73,24 @@ h3 {
   top: 0px;
 }
 
+.static-links {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.85em;
+}
+
+.static-links a {
+  display: inline-block;
+  padding: 0.2rem 0.35rem;
+  border-radius: 0.25rem;
+  color: #8a4b08;
+}
+
+.static-links a:hover {
+  background-color: #f3d6a4;
+}
+
 .github-ribbon a {
   display: inline-block;
   width: 200px;
@@ -99,6 +117,12 @@ h3 {
   }
   a {
     color: #00b7ff;
+  }
+  .static-links a {
+    color: #ffd166;
+  }
+  .static-links a:hover {
+    background-color: #654f1d;
   }
   li {
     background: hsl(0 0% 0% / 0.3);
