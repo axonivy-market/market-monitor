@@ -31,12 +31,7 @@ dev_master=(
 )
 
 githubRepos() {
-  ghApi="https://api.github.com/orgs/${org}/repos?per_page=100"
-  headers=(--header "Accept: application/vnd.github+json")
-  if [ ! -z "$GH_TOKEN" ]; then
-    headers+=(--header "Authorization: Bearer $GH_TOKEN")
-  fi
-  curl --url "${ghApi}" "${headers[@]}"
+  gh api --paginate --slurp "/orgs/${org}/repos?per_page=100" | jq 'add'
 }
 
 githubReposC(){
