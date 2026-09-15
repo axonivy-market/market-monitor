@@ -107,7 +107,7 @@ page() {
   echo "<a href='https://github.com/${org}'>${org}</a>: "
   echo "<a target='_blank' href='https://github.com/pulls/involves?q=is%3Apr+involves%3A%40me+state%3Aopen+archived%3Afalse+sort%3Aupdated-desc+org%3A${org}'>🔀 My PRs</a>"
   echo "<a target='_blank' href='https://github.com/orgs/${org}/repositories?q=archived%3Atrue'>🪦️ R.I.P</a>"
-  echo "<a target='_blank' href='https://github.com/axonivy-market/market-up2date-keeper'>♻️ Update</a>"
+  echo "<a target='_blank' href='https://${org}.github.io/market-up2date-keeper'>♻️ Update</a>"
   echo "</div>"
   echo "<ul>"
   print
